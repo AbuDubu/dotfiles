@@ -9,6 +9,7 @@ vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+    { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
@@ -74,6 +75,10 @@ require("no-neck-pain").setup({
 vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "Toggle centered/padded buffer" })
 
 -- Formatting ------------------------------------------------------------
+-- Explicit formatter per filetype where a fast standalone one exists; any
+-- other filetype falls back to the attached LSP's formatter (lsp_format
+-- "fallback" below), so this covers new languages automatically once an
+-- LSP is added for them in lsp.lua.
 require("conform").setup({
     formatters_by_ft = {
         c = { "clang_format" },
@@ -81,6 +86,21 @@ require("conform").setup({
         python = { "ruff_format" },
         rust = { "rustfmt" },
         lua = { "stylua" },
+        go = { "gofumpt" },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
+        zsh = { "shfmt" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        yaml = { "prettier" },
+        html = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
+        markdown = { "prettier" },
     },
     format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
 })

@@ -19,6 +19,21 @@ require("mason-lspconfig").setup({
     ensure_installed = { "clangd", "pyright", "rust_analyzer", "lua_ls" },
 })
 
+-- Formatter binaries used by conform.nvim (see lua/plugins.lua). Add a
+-- Mason package name here for any new formatter you wire up there.
+-- rustfmt is deliberately excluded: it ships via `rustup component add
+-- rustfmt`, not Mason, and isn't in the Mason registry.
+require("mason-tool-installer").setup({
+    ensure_installed = {
+        "clang-format",
+        "ruff",
+        "stylua",
+        "gofumpt",
+        "shfmt",
+        "prettier",
+    },
+})
+
 vim.diagnostic.config({
     virtual_text = { current_line = false },
     signs = true,
