@@ -1,0 +1,8 @@
+theme = Gruber Darker
+
+font-family = "Iosevka Nerd Font"
+font-size = 20
+
+maximize = true
+
+macos-option-as-alt = true
