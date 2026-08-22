@@ -12,6 +12,7 @@ vim.pack.add({
     { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
+    { src = "https://github.com/okuuva/auto-save.nvim" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
     -- prebuilt fuzzy-matcher binary (no cargo/rust needed to build it).
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
@@ -73,6 +74,21 @@ require("no-neck-pain").setup({
     width = 100,
 })
 vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "Toggle centered/padded buffer" })
+
+-- Auto-save ---------------------------------------------------------------
+-- Debounced save on InsertLeave/TextChanged; skips unnamed, nomodifiable,
+-- and special buffers (oil, telescope) so it never tries to write those.
+require("auto-save").setup({
+    condition = function(buf)
+        if vim.tbl_contains({ "oil", "TelescopePrompt" }, vim.bo[buf].filetype) then
+            return false
+        end
+        if vim.bo[buf].buftype ~= "" then
+            return false
+        end
+        return vim.fn.bufname(buf) ~= ""
+    end,
+})
 
 -- Formatting ------------------------------------------------------------
 -- Explicit formatter per filetype where a fast standalone one exists; any
