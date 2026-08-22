@@ -53,7 +53,13 @@ require("lualine").setup({
 
 -- Completion --------------------------------------------------------------
 require("blink.cmp").setup({
-    keymap = { preset = "default" },
+    keymap = {
+        preset = "enter",
+        -- Tab/S-Tab cycle the completion menu instead of jumping snippet
+        -- placeholders; falls back to normal Tab/S-Tab when menu is closed.
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+    },
     appearance = { nerd_font_variant = "mono" },
     completion = { documentation = { auto_show = true } },
     sources = { default = { "lsp", "path", "snippets", "buffer" } },
