@@ -89,6 +89,14 @@ require("auto-save").setup({
         return vim.fn.bufname(buf) ~= ""
     end,
 })
+-- The plugin saves silently by default; echo a one-line confirmation so
+-- it's visible that a save actually happened.
+vim.api.nvim_create_autocmd("User", {
+    pattern = "AutoSaveWritePost",
+    callback = function(args)
+        vim.notify("saved " .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(args.data.saved_buffer), ":~:."))
+    end,
+})
 
 -- Formatting ------------------------------------------------------------
 -- Explicit formatter per filetype where a fast standalone one exists; any
