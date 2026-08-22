@@ -10,6 +10,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/stevearc/conform.nvim" },
+    { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
     -- prebuilt fuzzy-matcher binary (no cargo/rust needed to build it).
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
@@ -65,6 +66,12 @@ require("blink.cmp").setup({
     sources = { default = { "lsp", "path", "snippets", "buffer" } },
     signature = { enabled = true },
 })
+
+-- Centered writing width -------------------------------------------------
+require("no-neck-pain").setup({
+    width = 100,
+})
+vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "Toggle centered/padded buffer" })
 
 -- Formatting ------------------------------------------------------------
 require("conform").setup({
