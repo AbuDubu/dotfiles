@@ -6,7 +6,7 @@
 [core]
 	editor = nvim
 [pull]
-	rebase = false
+	rebase = true
 [alias]
 	st = status
 	co = checkout
