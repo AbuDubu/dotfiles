@@ -161,26 +161,26 @@ The menu pops up automatically as you type in insert mode:
 All of the above fall back to their normal editing behavior when the menu
 isn't open (e.g. `<Tab>` still indents, `<CR>` still inserts a newline).
 
-### Formatting
+### Saving & formatting
 
 | Key | Action |
 |---|---|
-| `<leader>lf` | Format the current buffer (also happens automatically on every save) |
+| `<leader>w` | Save the current buffer (formats it first — see below) |
+| `<leader>lf` | Format the buffer without saving |
 
 ### Misc
 
 | Key | Action |
 |---|---|
-| `<leader>z` | Toggle a centered, 100-column writing area with padding on both sides (no-neck-pain.nvim) |
+| `<leader>z` | Toggle a centered, 120-column writing area with padding on both sides (no-neck-pain.nvim) |
 
-## Auto-save & format-on-save
+## Saving
 
-Files auto-save ~1 second after you stop typing (and immediately on
-leaving the buffer, losing focus, or quitting), via `auto-save.nvim`. It
-skips unnamed buffers, non-modifiable buffers, and special buffers like
-Oil and Telescope. Every save — auto or manual — prints `saved
-<path>` so it's obvious when it fires, and every save also runs
-`conform.nvim`'s formatter for that filetype.
+There is no auto-save — `<leader>w` (or `:w`) is the only thing that
+writes to disk, so nothing is saved until you ask for it. Every write
+also runs `conform.nvim`'s formatter for that filetype first
+(`format_on_save`), so `<leader>w` always saves already-formatted code;
+`<leader>lf` is there for formatting without saving.
 
 ## Plugins used
 
@@ -199,7 +199,6 @@ Oil and Telescope. Every save — auto or manual — prints `saved
 | [mason-tool-installer.nvim](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim) | Auto-installs the formatter binaries `conform.nvim` calls |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Formatting, on save and on demand |
 | [no-neck-pain.nvim](https://github.com/shortcuts/no-neck-pain.nvim) | Centered writing width |
-| [auto-save.nvim](https://github.com/okuuva/auto-save.nvim) | Debounced auto-save |
 | [blink.cmp](https://github.com/saghen/blink.cmp) | Completion |
 
 Treesitter parsers installed: `c`, `cpp`, `python`, `rust`, `lua`, `vim`,

@@ -12,7 +12,6 @@ vim.pack.add({
     { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
-    { src = "https://github.com/okuuva/auto-save.nvim" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
     -- prebuilt fuzzy-matcher binary (no cargo/rust needed to build it).
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
@@ -77,29 +76,6 @@ require("no-neck-pain").setup({
 })
 vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "Toggle centered/padded buffer" })
 
--- Auto-save ---------------------------------------------------------------
--- Debounced save on InsertLeave/TextChanged; skips unnamed, nomodifiable,
--- and special buffers (oil, telescope) so it never tries to write those.
-require("auto-save").setup({
-    condition = function(buf)
-        if vim.tbl_contains({ "oil", "TelescopePrompt" }, vim.bo[buf].filetype) then
-            return false
-        end
-        if vim.bo[buf].buftype ~= "" then
-            return false
-        end
-        return vim.fn.bufname(buf) ~= ""
-    end,
-})
--- The plugin saves silently by default; echo a one-line confirmation so
--- it's visible that a save actually happened.
-vim.api.nvim_create_autocmd("User", {
-    pattern = "AutoSaveWritePost",
-    callback = function(args)
-        vim.notify("saved " .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(args.data.saved_buffer), ":~:."))
-    end,
-})
-
 -- Formatting ------------------------------------------------------------
 -- Explicit formatter per filetype where a fast standalone one exists; any
 -- other filetype falls back to the attached LSP's formatter (lsp_format
@@ -133,3 +109,7 @@ require("conform").setup({
 vim.keymap.set({ "n", "v" }, "<leader>lf", function()
     require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format buffer" })
+
+-- Manual save: no auto-save, so this is the only thing that writes to
+-- disk. format_on_save above formats as part of the write itself.
+vim.keymap.set("n", "<leader>w", "<cmd>write<CR>", { desc = "Save (and format) buffer" })
