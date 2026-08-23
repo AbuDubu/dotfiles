@@ -37,7 +37,13 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.mouse = "a"
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+-- timeoutlen: how long to wait for the rest of a mapped sequence (e.g.
+-- <leader>ff) before giving up and running the first key on its own.
+-- ttimeoutlen: separately, how long to wait for the rest of a terminal key
+-- code (e.g. the Esc that prefixes an arrow key) - kept low so Esc stays
+-- snappy regardless of the more forgiving timeoutlen above.
+vim.opt.timeoutlen = 500
+vim.opt.ttimeoutlen = 10
 vim.opt.showmode = false
 vim.opt.winborder = "rounded"
 vim.opt.pumheight = 10
