@@ -3,3 +3,14 @@
 	email = abubakarmir21@gmail.com
 [init]
 	defaultBranch = main
+[core]
+	editor = nvim
+[pull]
+	rebase = false
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	last = log -1 HEAD
+	lg = log --oneline --graph --decorate --all
