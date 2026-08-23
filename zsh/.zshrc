@@ -110,3 +110,10 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 . "$HOME/.local/bin/env"
 
 export PATH="$PATH:$HOME/.config/emacs/bin"
+
+# Always emit compile_commands.json so clangd/clang-tidy get accurate
+# flags and include paths - clangd is configured to look for it in
+# build/compile_commands.json (see ../nvim/lua/lsp.lua).
+cmake() {
+	command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+}

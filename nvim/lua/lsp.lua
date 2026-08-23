@@ -2,6 +2,15 @@ require("mason").setup()
 
 -- Per-server tweaks go here, keyed by the name nvim-lspconfig ships
 -- (see `:h lspconfig-all` or the "lsp/" dir of nvim-lspconfig).
+-- Turns on clang-tidy diagnostics (uses ~/.clang-tidy as a fallback when a
+-- project has none) and points clangd at build/compile_commands.json by
+-- convention - see ../../zsh/.zshrc's `cmake` wrapper, which always
+-- generates it there. Projects using a different build dir need their own
+-- .clangd with `CompileFlags: CompilationDatabase: <dir>`.
+vim.lsp.config("clangd", {
+    cmd = { "clangd", "--clang-tidy", "--compile-commands-dir=build" },
+})
+
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
