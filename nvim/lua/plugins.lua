@@ -70,8 +70,10 @@ require("blink.cmp").setup({
 })
 
 -- Centered writing width -------------------------------------------------
+-- width is the whole centered window (line numbers + sign column included),
+-- so actual code space is ~6 columns less than this.
 require("no-neck-pain").setup({
-    width = 100,
+    width = 120,
 })
 vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "Toggle centered/padded buffer" })
 
