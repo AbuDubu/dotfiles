@@ -30,7 +30,13 @@ vim.opt.shortmess:append("c")
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.isfname:append("@-@")
 vim.opt.guicursor = ""
-vim.opt.scrolloff = 8
+-- A very large scrolloff keeps the cursor vertically centered whenever
+-- there's enough buffer above/below (this is documented native behavior,
+-- see `:h scrolloff`) - except right at the start/end of the file, where
+-- vim deliberately excludes scrolloff. scrollEOF.nvim (in plugins.lua)
+-- patches that exception so the last line can also reach the middle of
+-- the window; it caps this value to half the window height itself.
+vim.opt.scrolloff = 999
 
 vim.opt.colorcolumn = "0"
 vim.opt.signcolumn = "yes"

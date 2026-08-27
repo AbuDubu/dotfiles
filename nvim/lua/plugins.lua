@@ -12,6 +12,7 @@ vim.pack.add({
     { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
+    { src = "https://github.com/Aasim-A/scrollEOF.nvim" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
     -- prebuilt fuzzy-matcher binary (no cargo/rust needed to build it).
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
@@ -84,6 +85,9 @@ require("blink.cmp").setup({
     sources = { default = { "lsp", "path", "snippets", "buffer" } },
     signature = { enabled = true },
 })
+
+-- Let scrolloff apply at the start/end of the file too (see options.lua) ---
+require("scrollEOF").setup()
 
 -- Centered writing width -------------------------------------------------
 -- width is the whole centered window (line numbers + sign column included),
