@@ -19,14 +19,31 @@ vim.pack.add({
 
 -- Treesitter ----------------------------------------------------------------
 local ts_langs = { "c", "cpp", "python", "rust", "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline" }
+-- Treesitter's indentexpr has real bugs: it loses track of nesting on
+-- multi-level Allman-style C/C++ blocks (a brace nested two levels deep
+-- stopped being indented at all), and doesn't dedent Python's `else`/`elif`
+-- to match its `if`. c/cpp use Vim's built-in `cindent` instead (see below);
+-- python is just excluded here so Neovim's own bundled indent/python.vim
+-- (mature, purpose-built) applies instead of being overridden.
+local ts_indent_exclude = { c = true, cpp = true, python = true }
 
 require("nvim-treesitter").install(ts_langs)
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = ts_langs,
-    callback = function()
+    callback = function(args)
         vim.treesitter.start()
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        if not ts_indent_exclude[args.match] then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "c", "cpp" },
+    callback = function()
+        vim.bo.cindent = true
+        vim.bo.smartindent = false
     end,
 })
 
