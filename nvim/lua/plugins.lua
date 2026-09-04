@@ -13,6 +13,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
     { src = "https://github.com/Aasim-A/scrollEOF.nvim" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
     -- prebuilt fuzzy-matcher binary (no cargo/rust needed to build it).
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
@@ -47,6 +48,13 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.bo.smartindent = false
     end,
 })
+
+-- Pins the enclosing class/function signature to the top of the window
+-- while scrolled inside its body ("sticky scroll").
+require("treesitter-context").setup({
+    max_lines = 3,
+})
+vim.keymap.set("n", "<leader>tc", "<cmd>TSContext toggle<CR>", { desc = "Toggle sticky scroll context" })
 
 -- Telescope -------------------------------------------------------------
 require("telescope").setup({})
