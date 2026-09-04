@@ -90,6 +90,13 @@ require("blink.cmp").setup({
     },
     appearance = { nerd_font_variant = "mono" },
     completion = { documentation = { auto_show = true } },
+    -- Command-line completion (":" commands, options, etc.) - menu pops up
+    -- automatically as you type instead of needing Tab first. Uses the
+    -- default "cmdline" keymap preset: Tab shows/selects, C-y accepts, C-e
+    -- cancels (Enter is left alone so it still runs the command line).
+    cmdline = {
+        completion = { menu = { auto_show = true } },
+    },
     sources = { default = { "lsp", "path", "snippets", "buffer" } },
     signature = { enabled = true },
 })
