@@ -82,6 +82,7 @@ Leader-prefixed maps are listed as `<leader>x`; leader is Space, so
 | `<leader>fd` | Workspace diagnostics |
 | `<leader>fr` | Resume the last picker |
 | `<leader>fo` | Recently opened files |
+| `<leader>fk` | Search all keymaps (handy when you forget one) |
 
 ### File explorer — Oil
 
@@ -111,13 +112,41 @@ buffer.
 ### LSP
 
 These are set only in buffers with an attached language server (see
-`lua/lsp.lua`'s `LspAttach` autocommand):
+`lua/lsp.lua`'s `LspAttach` autocommand). Ones that need a specific
+server capability are only bound when that server has it.
+
+**Go to** — jump back with `<C-o>` (forward `<C-i>`), or `<C-t>` to pop the
+tag stack:
 
 | Key | Action |
 |---|---|
 | `gd` | Go to definition |
 | `gD` | Go to declaration |
-| `<leader>th` | Toggle inlay hints |
+| `gy` | Go to type definition (jump to the type of the variable under the cursor) |
+| `gI` | Go to implementation (for virtual methods: the overrides) |
+| `<leader>lh` | Switch between source and header (clangd only) |
+
+**Find** — Telescope pickers with a live preview:
+
+| Key | Action |
+|---|---|
+| `<leader>lr` | References |
+| `<leader>li` | Implementations |
+| `<leader>ld` | Definitions (list + preview, useful when there are several) |
+| `<leader>ls` | Symbols in this file (functions, classes, ...) |
+| `<leader>lS` | Symbols across the whole workspace (type to search) |
+| `<leader>lc` | Incoming calls — who calls this function |
+| `<leader>lC` | Outgoing calls — what this function calls |
+| `<leader>lt` / `<leader>lT` | Type hierarchy: supertypes / subtypes |
+
+**Refactor & edit:**
+
+| Key | Action |
+|---|---|
+| `<leader>rn` | Rename symbol everywhere it's used (across files) |
+| `<leader>ca` | Code action (fixes, refactors, ...) — also works on a visual selection |
+| `<leader>lf` | Format the buffer |
+| `<leader>th` | Toggle inlay hints (inferred types / parameter names) |
 
 Neovim 0.11+ also ships these LSP keymaps by default (no config needed —
 they just work once a server attaches):
@@ -127,12 +156,40 @@ they just work once a server attaches):
 | `K` | Hover documentation |
 | `grn` | Rename symbol |
 | `gra` | Code action |
-| `grr` | Find references |
+| `grr` | Find references (quickfix list) |
 | `gri` | Go to implementation |
 | `grt` | Go to type definition |
-| `gO` | Document symbols |
+| `gO` | Document symbols (outline in the location list) |
 | `grx` | Run code lens |
 | `<C-s>` (insert mode) | Signature help |
+| `an` / `in` (visual) | Expand / shrink the selection by syntax node |
+
+**Happens automatically** (no keys): diagnostics as you type, inlay hints,
+the symbol under the cursor is highlighted everywhere it appears once you
+pause, code lenses (Run/Debug above functions in Rust), semantic
+highlighting, linked tag editing in HTML/XML, and — for C/C++ — clangd
+re-formats the line when you type `;` or `}` (per your `.clang-format`,
+same as CLion). The statusline shows the attached server(s) and a spinner
+while one is indexing.
+
+### Folding
+
+Code folds by syntax (or by the server's ranges when it provides them);
+everything starts unfolded.
+
+| Key | Action |
+|---|---|
+| `za` | Toggle the fold under the cursor |
+| `zc` / `zo` | Close / open the fold under the cursor |
+| `zM` / `zR` | Close / open every fold in the file |
+
+### Auto-closing pairs
+
+Typing `(`, `[`, `{`, `"`, `'` or `` ` `` inserts the closer too; typing the
+closer steps over it. Pressing `<CR>` between `{` and `}` opens an
+indented block. Quotes aren't paired inside strings/comments (so `don't`
+is fine) — this uses treesitter (`check_ts`), see `nvim-autopairs` in
+`lua/plugins.lua`.
 
 ### Diagnostics
 
@@ -199,7 +256,15 @@ also runs `conform.nvim`'s formatter for that filetype first
 | [mason-tool-installer.nvim](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim) | Auto-installs the formatter binaries `conform.nvim` calls |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Formatting, on save and on demand |
 | [no-neck-pain.nvim](https://github.com/shortcuts/no-neck-pain.nvim) | Centered writing width |
-| [blink.cmp](https://github.com/saghen/blink.cmp) | Completion |
+| [blink.cmp](https://github.com/saghen/blink.cmp) | Completion (insert mode and `:` command line) |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto-close brackets and quotes |
+| [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context) | Pins the enclosing class/function signature to the top of the window (`<leader>tc` toggles) |
+| [scrollEOF.nvim](https://github.com/Aasim-A/scrollEOF.nvim) | Lets the last line of a file scroll to the middle of the window |
+
+Language servers installed by default (`ensure_installed` in `lua/lsp.lua`):
+`clangd` (C/C++), `pyright` (Python), `rust_analyzer` (Rust), `lua_ls`
+(Lua), `neocmake` (CMake), `bashls` (shell), `jsonls` (JSON), `taplo`
+(TOML).
 
 Treesitter parsers installed: `c`, `cpp`, `python`, `rust`, `lua`, `vim`,
 `vimdoc`, `bash`, `markdown`, `markdown_inline` (see `ts_langs` in

@@ -38,6 +38,12 @@ vim.opt.guicursor = ""
 -- the window; it caps this value to half the window height itself.
 vim.opt.scrolloff = 999
 
+-- Start with everything unfolded; foldtext="" shows the folded line itself
+-- (syntax highlighted) instead of the default "+-- N lines" text.
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldtext = ""
+
 vim.opt.colorcolumn = "0"
 vim.opt.signcolumn = "yes"
 

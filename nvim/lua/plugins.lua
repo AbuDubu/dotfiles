@@ -14,6 +14,7 @@ vim.pack.add({
     { src = "https://github.com/shortcuts/no-neck-pain.nvim" },
     { src = "https://github.com/Aasim-A/scrollEOF.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+    { src = "https://github.com/windwp/nvim-autopairs" },
     -- vim.version.range("1") tracks the latest v1.x.y tag, which ships a
     -- prebuilt fuzzy-matcher binary (no cargo/rust needed to build it).
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
@@ -35,6 +36,10 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = ts_langs,
     callback = function(args)
         vim.treesitter.start()
+        -- Code folding by syntax node (za toggles, zR opens all, zM closes
+        -- all); lsp.lua switches to the server's fold ranges when it has any.
+        vim.wo.foldmethod = "expr"
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         if not ts_indent_exclude[args.match] then
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
@@ -67,6 +72,7 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Workspace diagnostics" })
 vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Resume last picker" })
 vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Recently opened files" })
+vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Search keymaps" })
 
 -- Oil: edit the filesystem like a normal buffer ------------------------------
 require("oil").setup({
@@ -77,6 +83,18 @@ vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 -- Statusline ------------------------------------------------------------
 require("lualine").setup({
     options = { theme = "auto", globalstatus = true },
+    -- lsp_status: attached server names + a spinner while they're indexing.
+    sections = {
+        lualine_x = { "lsp_status", "encoding", "fileformat", "filetype" },
+    },
+})
+
+-- Auto-close (), [], {}, "", '', `` and step over the closer when typed.
+-- <CR> between a pair opens an indented block. check_ts uses treesitter so
+-- quotes aren't paired inside strings/comments (e.g. the ' in "don't").
+-- Set up before blink.cmp so blink's <CR> can fall back to this mapping.
+require("nvim-autopairs").setup({
+    check_ts = true,
 })
 
 -- Completion --------------------------------------------------------------
