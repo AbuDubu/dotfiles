@@ -1,0 +1,21 @@
+[[language]]
+name = "c"
+auto-format = true
+language-servers = ["clangd-c"]
+
+[[language]]
+name = "cpp"
+auto-format = true
+language-servers = ["clangd-cpp"]
+
+# Separate clangd instances so each language gets its own process and
+# fallback flags (used only when there's no compile_commands.json).
+[language-server.clangd-c]
+command = "clangd"
+args = ["--background-index", "--clang-tidy"]
+config = { fallbackFlags = ["-std=c23"] }
+
+[language-server.clangd-cpp]
+command = "clangd"
+args = ["--background-index", "--clang-tidy"]
+config = { fallbackFlags = ["-std=c++23"] }
