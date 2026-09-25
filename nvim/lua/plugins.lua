@@ -1,5 +1,5 @@
 vim.pack.add({
-    { src = "https://github.com/blazkowolf/gruber-darker.nvim" },
+    { src = "https://github.com/p00f/alabaster.nvim" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
@@ -82,7 +82,9 @@ vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 
 -- Statusline ------------------------------------------------------------
 require("lualine").setup({
-    options = { theme = "auto", globalstatus = true },
+    -- alabaster.nvim ships its own lualine theme (also &background-aware),
+    -- picked up here by name instead of "auto".
+    options = { theme = "alabaster", globalstatus = true },
     -- lsp_status: attached server names + a spinner while they're indexing.
     sections = {
         lualine_x = { "lsp_status", "encoding", "fileformat", "filetype" },

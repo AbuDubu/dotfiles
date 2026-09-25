@@ -1,7 +1,7 @@
 # nvim config
 
 A small, from-scratch Neovim config built on the native `vim.pack` package
-manager (Neovim 0.11+), the `gruber-darker` colorscheme, and built-in LSP
+manager (Neovim 0.11+), the `alabaster` (dark) colorscheme, and built-in LSP
 (`vim.lsp.enable`/`vim.lsp.config`, no `lspconfig.setup()` wrapper). LSP
 servers and formatters are managed by Mason so any new language is a
 one-line addition — see [Adding a new LSP server](#adding-a-new-lsp-server)
@@ -243,7 +243,7 @@ also runs `conform.nvim`'s formatter for that filetype first
 
 | Plugin | Purpose |
 |---|---|
-| [gruber-darker.nvim](https://github.com/blazkowolf/gruber-darker.nvim) | Colorscheme |
+| [alabaster.nvim](https://github.com/p00f/alabaster.nvim) | Colorscheme (dark) |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Filetype icons |
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | Lua stdlib (Telescope dependency) |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder |

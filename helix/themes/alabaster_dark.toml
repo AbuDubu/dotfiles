@@ -1,0 +1,117 @@
+# Alabaster Dark for Helix
+#
+# Ported from Nikita Prokopov's (tonsky) Alabaster Dark, same palette as
+# ../ghostty/themes/alabaster_dark and ../nvim (p00f/alabaster.nvim).
+#
+# Alabaster deliberately limits syntax highlighting to four things: strings,
+# constants, comments, and definitions (functions/types). Keywords,
+# operators and punctuation are left as plain foreground text instead of
+# being highlighted, on the idea that they're obvious and least important -
+# see https://github.com/p00f/alabaster.nvim for the full rationale.
+
+"keyword" = "fg0"
+"keyword.directive" = "fg0"
+"operator" = "fg0"
+"punctuation" = "fg0"
+"punctuation.delimiter" = "fg0"
+"punctuation.bracket" = "fg0"
+"variable" = "fg0"
+"variable.parameter" = "fg0"
+"variable.builtin" = "def"
+"namespace" = "fg0"
+"attribute" = "fg0"
+"label" = "fg0"
+
+"function" = "def"
+"function.builtin" = "def"
+"function.macro" = "def"
+"type" = "def"
+"type.builtin" = "def"
+"constructor" = "def"
+"tag" = "def"
+"module" = "def"
+
+"constant" = "const"
+"constant.builtin" = "const"
+"constant.numeric" = "const"
+"constant.character" = "const"
+"constant.character.escape" = "const"
+
+"string" = "string"
+"string.special" = "string"
+
+"comment" = { fg = "comment" }
+
+"diff.plus" = "string"
+"diff.delta" = "active"
+"diff.minus" = "red"
+
+"warning" = { fg = "warn" }
+"error" = { fg = "red" }
+"info" = { fg = "cyan" }
+"hint" = { fg = "def" }
+
+"ui.background" = { bg = "bg0" }
+"ui.linenr" = { fg = "dim" }
+"ui.linenr.selected" = { fg = "fg0" }
+"ui.cursorline" = { bg = "bg1" }
+
+"ui.statusline" = { fg = "fg0", bg = "bg1" }
+"ui.statusline.normal" = { fg = "bg0", bg = "active", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "bg0", bg = "def", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "bg0", bg = "const", modifiers = ["bold"] }
+"ui.statusline.inactive" = { fg = "dim", bg = "bg1" }
+
+"ui.bufferline" = { fg = "dim", bg = "bg1" }
+"ui.bufferline.active" = { fg = "fg0", bg = "bg2" }
+
+"ui.popup" = { bg = "bg2" }
+"ui.window" = { fg = "bg1" }
+"ui.help" = { bg = "bg1", fg = "fg0" }
+"ui.text" = { fg = "fg0" }
+"ui.text.directory" = { fg = "def" }
+"ui.text.focus" = { bg = "bg2", modifiers = ["bold"] }
+"ui.selection" = { bg = "bg2" }
+"ui.selection.primary" = { bg = "bg3" }
+"ui.cursor.primary" = { bg = "active", fg = "bg0" }
+"ui.cursor.match" = { bg = "bg3" }
+"ui.menu" = { fg = "fg0", bg = "bg2" }
+"ui.menu.selected" = { fg = "fg0", bg = "bg3", modifiers = ["bold"] }
+
+"ui.virtual.whitespace" = "bg2"
+"ui.virtual.indent-guide" = "bg2"
+"ui.virtual.ruler" = { bg = "bg1" }
+"ui.virtual.inlay-hint" = { fg = "dim" }
+"ui.virtual.wrap" = { fg = "bg2" }
+"ui.virtual.jump-label" = { fg = "red", modifiers = ["bold"] }
+
+"diagnostic.warning" = { underline = { color = "warn", style = "dashed" } }
+"diagnostic.error" = { underline = { color = "red", style = "dashed" } }
+"diagnostic.info" = { underline = { color = "cyan", style = "dashed" } }
+"diagnostic.hint" = { underline = { color = "def", style = "dashed" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+"markup.heading" = { fg = "def", modifiers = ["bold"] }
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "string", modifiers = ["underlined"] }
+"markup.link.text" = "def"
+"markup.raw" = { fg = "fg0", bg = "bg2", modifiers = ["bold"] }
+
+[palette]
+fg0     = "#cecece"
+dim     = "#708b8d"
+def     = "#71ade7"
+const   = "#cc8bc9"
+active  = "#cd974b"
+string  = "#95cb82"
+comment = "#dfdf8e"
+cyan    = "#7fc1c7"
+warn    = "#ececa8"
+red     = "#d66b5e"
+bg0     = "#0e1415"
+bg1     = "#162022"
+bg2     = "#293334"
+bg3     = "#3a4547"

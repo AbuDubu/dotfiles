@@ -1,0 +1,33 @@
+# Alabaster Dark for Ghostty
+# Based on Nikita Prokopov's (tonsky) Alabaster Dark color scheme.
+# Core colors come from the original; ANSI slots without an
+# Alabaster equivalent (red, cyan, brights) are extrapolated to match.
+
+background = #0e1415
+foreground = #cecece
+
+cursor-color = #cd974b
+cursor-text = #0e1415
+
+selection-background = #293334
+selection-foreground = #cecece
+
+# Normal
+palette = 0=#293334
+palette = 1=#d66b5e
+palette = 2=#95cb82
+palette = 3=#dfdf8e
+palette = 4=#71ade7
+palette = 5=#cc8bc9
+palette = 6=#7fc1c7
+palette = 7=#cecece
+
+# Bright
+palette = 8=#708b8d
+palette = 9=#f08274
+palette = 10=#b1dca0
+palette = 11=#ececa8
+palette = 12=#95c4f0
+palette = 13=#dfa8dc
+palette = 14=#9fd6db
+palette = 15=#ffffff

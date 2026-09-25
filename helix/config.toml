@@ -1,4 +1,4 @@
-theme = "gruber-darker"
+theme = "alabaster_dark"
 
 [editor]
 auto-format = true
