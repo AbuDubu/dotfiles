@@ -1,2 +1,5 @@
 # TPM-managed tmux plugins (fetched by `prefix + I`, not tracked here)
 tmux/plugins/
+
+# Per-machine symlink to ghostty/<os>.conf, created by install.sh
+ghostty/local.conf

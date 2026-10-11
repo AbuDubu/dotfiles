@@ -87,6 +87,14 @@ for entry in "${LINKS[@]}"; do
     link "${entry%%:*}" "${entry#*:}"
 done
 
+# Ghostty has no per-OS config. ghostty/config includes an optional,
+# gitignored local.conf; point it at this OS's file (ghostty/linux.conf on
+# Linux), if there is one. Goes through ~/.config/ghostty, linked above.
+os_conf="ghostty/$(uname -s | tr '[:upper:]' '[:lower:]').conf"
+if [ -e "$DOTFILES/$os_conf" ]; then
+    link "$os_conf" ".config/ghostty/local.conf"
+fi
+
 # tmux.conf runs ~/.config/tmux/plugins/tpm/tpm, which resolves to this path
 # once ~/.config/tmux is linked. tmux/plugins/ is gitignored, so TPM itself
 # isn't in the repo and has to be fetched on every new machine.

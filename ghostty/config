@@ -6,3 +6,7 @@ font-size = 20
 maximize = true
 
 macos-option-as-alt = true
+
+# Per-OS overrides: local.conf is a gitignored symlink that install.sh points
+# at linux.conf on Linux. It doesn't exist on macOS (the ? makes that fine).
+config-file = ?local.conf
